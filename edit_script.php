@@ -35,7 +35,7 @@ if (mysqli_query($conn, $sql)) {
     <div class='container'>
         <div class="row">
             <?=$mensagem?>
-            <a href="index.html" class="btn btn-primary">Voltar</a>
+            <a href="/" class="btn btn-primary">Voltar</a>
         </div>
     </div>
 

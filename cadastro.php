@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -12,24 +12,24 @@
   </head>
   <body>
    
- <div class='container'>
+ <div class="container">
      <div class="row">
          <div class="col">
             <h1>cadastro</h1>
             <form action="cadastro_script.php" method="POST">
               <div class="form-group">
                 <label for="nome">Nome Completo</label>
-                <input type="text" class="form-control" name='nome'Required >
+                <input type="text" class="form-control" name="nome" required>
               </div>
               <div class="form-group">
                 <label for="endereço">Endereço</label>
-                <input type="text" class="form-control" name='endereco' >
+                <input type="text" class="form-control" name="endereco">
               </div>
               <div class="form-group">
-                <input type="submit" class="btn btn-success" >
+                <button type="submit" class="btn btn-success">Salvar</button>
               </div>
             </form>
-            <a href="index.html" class="btn btn-info">Voltar</a>
+            <a href="/" class="btn btn-default">Voltar</a>
          </div>
      </div>
  </div>

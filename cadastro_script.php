@@ -1,5 +1,5 @@
 <?php
-include 'conexao.php';
+require 'bootstrap.php';
 
 $nome = $_POST['nome'];
 $endereco = $_POST['endereco'];
@@ -8,11 +8,13 @@ $sql = "INSERT INTO `pessoas`( `nome`,`endereco`) VALUES
          ('$nome','$endereco')";
 
 $mensagem = '';
+$erro = false;
 if (mysqli_query($conn, $sql)) {
-    $mensagem = mensagem("$nome cadastrado com sucesso!", 'success');
-} else
-    $mensagem = mensagem("$nome Não foi cadastrado", 'danger');
-
+    $mensagem = "$nome cadastrado com sucesso!";
+} else {
+    $mensagem = "$nome Não foi cadastrado";
+    $erro = true;
+}
 ?>
 
 <!doctype html>
@@ -33,8 +35,10 @@ if (mysqli_query($conn, $sql)) {
 
     <div class='container'>
         <div class="row">
-            <?=$mensagem?>
-            <a href="index.html" class="btn btn-primary">Voltar</a>
+            <div class='alert alert-<?=$erro ? 'danger' : 'success'?>'>
+                <?= $mensagem ?>
+            </div>
+            <a href="/" class="btn btn-primary">Voltar</a>
         </div>
     </div>
 

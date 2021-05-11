@@ -1,5 +1,8 @@
 <?php
-include 'conexao.php';
+include 'bootstrap.php';
+
+print_r($_POST);
+
 $id = $_POST['id'];
 $nome = $_POST['nome'];
 
@@ -10,9 +13,9 @@ $nome = $_POST['nome'];
 
 $mensagem = '';
 if (mysqli_query($conn, $sql)) {
-    $mensagem = mensagem("$nome excluido com sucesso!", 'success');
+    $mensagem = "$nome excluido com sucesso!";
 } else
-    $mensagem = mensagem("$nome Não foi excluido ", 'danger');
+    $mensagem = "$nome Não foi excluido ";
 
 ?>
 
@@ -35,7 +38,7 @@ if (mysqli_query($conn, $sql)) {
     <div class='container'>
         <div class="row">
             <?=$mensagem?>
-            <a href="index.html" class="btn btn-primary">Voltar</a>
+            <a href="/" class="btn btn-primary">Voltar</a>
         </div>
     </div>
 

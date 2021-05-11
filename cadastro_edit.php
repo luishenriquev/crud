@@ -42,7 +42,7 @@
                 <input type="hidden" name="id" value="<?php echo $linha['id'];?>">
               </div>
             </form>
-            <a href="index.html" class="btn btn-info">Voltar</a>
+            <a href="/" class="btn btn-info">Voltar</a>
          </div>
      </div>
  </div>

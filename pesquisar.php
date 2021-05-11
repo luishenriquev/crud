@@ -1,20 +1,12 @@
 <?php
 
+require "bootstrap.php";
 
- $pesquisar = $_POST['busca'] ?? '';
+$busca = $_POST['busca'] ?? '';
 
-include "conexao.php";
+$service = new ServicePessoa();
+$pessoas = $service->get($busca);
 
-$resul = "SELECT * from pessoas where nome LIKE '%$pesquisar%'";
-//$resul = "SELECT * FROM  pessoas ";
-
-$res = $conn->query($resul);
- /*while($linha = mysqli_fetch_assoc($res)){
-     foreach ($linha as $key => $value){
-        echo "$key: $value<br>";
-     }
- }*/
-   
 ?>
 
 <!doctype html>
@@ -48,67 +40,57 @@ $res = $conn->query($resul);
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col">endereço</th>
+                            <th scope="col">Rua</th>
+                            <th scope="col">Número</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
-                         while($linha = mysqli_fetch_assoc($res)) {
-                          $id = $linha["id"];
-                          $nome = $linha["nome"];
-                          $endereco = $linha["endereco"];
-  
-
-                           echo " <tr>
-                                       <th scope='row'>$nome</th>
-                                       <td>$endereco</td>
-                                       <td width= 140px>
-                                       <a href='cadastro_edit.php?id=$id' class='btn btn-success btn-sm'>Editar</a>
-                                       <a href='#' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#confirma'
-                                       onclick=" .'"' ."pegar_dados($id, '$nome')" .'"' .">Excluir</a>
-                                       </td>
-                                   </tr>";
-                                 
-                        } 
-                        ?> 
+                        <?php foreach ($pessoas as $p) : ?>
+                            <tr>
+                                <th scope='row'><?= $p->nome ?></th>
+                                <td><?= $p->getRua() ?></td>
+                                <td><?= $p->getNumero() ?></td>
+                                <td width=140px>
+                                    <a href='cadastro_edit.php?id=<?= $p->id ?>' class='btn btn-success btn-sm'>Editar</a>
+                                    <a href='#' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#confirma' onclick="pegar_dados(<?= $p->id ?>, '<?= $p->nome ?>')">Excluir</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
-                <a href="index.html" class="btn btn-info">Voltar</a>
+                <a href="/" class="btn btn-info">Voltar</a>
             </div>
         </div>
     </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="confirma" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmar exclusão</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form action="excluir_script.php" method="POST">   
-     <p>Deseja realmente excluir <b id="nome_pessoa">Nome da pessoa</b>?</p>
-    
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-          <input type="hidden" name="id" id="cod_pessoa" value="">
-          <input type="submit" class="btn btn-danger" value="Sim">
-        </form> 
-      </div>
+    <!-- Modal -->
+    <div class="modal fade" id="confirma" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmar exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja realmente excluir <b id="nome_pessoa">Nome da pessoa</b>?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="excluir_script.php" method="POST">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                        <input type="hidden" name="id" id="cod_pessoa" value="">
+                        <input type="submit" class="btn btn-danger" value="Sim">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-   <script type="text/javascript">
-   function pegar_dados(id, nome){
-       document.getElementById('nome_pessoa').innerHTML = nome;
-       document.getElementById('cod_pessoa').value = id;
-
-   }
-
-   </script>
+    <script type="text/javascript">
+        function pegar_dados(id, nome) {
+            document.getElementById('nome_pessoa').innerHTML = nome;
+            document.getElementById('cod_pessoa').value = id;
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 
