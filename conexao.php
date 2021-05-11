@@ -1,7 +1,7 @@
 <?php
 $server ="localhost";
-$user ="lh_usuario";
-$pass ="201614Bn";
+$user ="root";
+$pass ="root";
 $bd = "lh_empresa";
 
 
