@@ -1,7 +1,7 @@
 <?php
 $server = 'localhost';
 $user = 'lh_usuario';
-$pass = '201614Bn';
+$pass = '';
 $bd = 'lh_empresa';
 
 if ($conn = new mysqli($server, $user, $pass, $bd)) {
